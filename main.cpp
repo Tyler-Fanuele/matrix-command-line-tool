@@ -72,6 +72,10 @@ int main(int argc, char** argv) {
                         second_col_size = stoi(cmd_strings.at(5));
                     }
 
+                    for (size_t i = 0; i < first_col_size; i++) {
+                        
+                    }
+
                     break;
 
                 case 't':  // text file input
