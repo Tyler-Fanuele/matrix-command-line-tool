@@ -12,7 +12,7 @@ using std::endl;
 using std::string;
 using std::vector;
 
-enum math_type{
+enum math_type {
     add,
     sub,
     mul,
@@ -22,9 +22,10 @@ enum math_type{
 int main(int argc, char** argv) {
     try {
         int opt;
-        size_t row_size = 0;
-        size_t col_size = 0;
-
+        size_t first_row_size = 0;
+        size_t first_col_size = 0;
+        size_t second_row_size = 0;
+        size_t second_col_size = 0;
 
         // cmd line only for now
         string cmd_arg;
@@ -56,9 +57,21 @@ int main(int argc, char** argv) {
                     if (cmd_strings.size() < 3) {
                         throw std::runtime_error("not enough args");
                     }
-                    
 
-                    
+                    if (cmd_strings.size() == 5) {
+                        if (cmd_strings[2] == "+") {
+                            operation = add;
+                        } else if (cmd_strings[2] == "-") {
+                            operation = sub;
+                        } else if (cmd_strings[2] == "*") {
+                            operation = mul;
+                        }
+                        first_row_size = stoi(cmd_strings.at(0));
+                        first_col_size = stoi(cmd_strings.at(1));
+                        second_row_size = stoi(cmd_strings.at(4));
+                        second_col_size = stoi(cmd_strings.at(5));
+                    }
+
                     break;
 
                 case 't':  // text file input
@@ -66,7 +79,7 @@ int main(int argc, char** argv) {
                     break;
             }
         }
-    } catch(std::runtime_error err) {
+    } catch (std::runtime_error err) {
         cout << err.what() << endl;
     }
 
