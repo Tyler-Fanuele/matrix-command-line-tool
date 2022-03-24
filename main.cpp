@@ -11,6 +11,7 @@ using std::cout;
 using std::endl;
 using std::string;
 using std::vector;
+using std::cin;
 
 enum math_type {
     add,
@@ -27,10 +28,15 @@ int main(int argc, char** argv) {
         size_t second_row_size = 0;
         size_t second_col_size = 0;
 
+        matrix first;
+        matrix second;
+
         // cmd line only for now
         string cmd_arg;
         vector<string> cmd_strings;
         size_t pos;
+
+        string wstring;
 
         math_type operation;
 
@@ -52,10 +58,13 @@ int main(int argc, char** argv) {
                     while ((pos = cmd_arg.find(',')) != string::npos) {
                         cmd_strings.push_back(cmd_arg.substr(0, pos));
                         cmd_arg.erase(0, pos + 1);
-                        cout << cmd_arg << endl;
                     }
                     if (cmd_strings.size() < 3) {
                         throw std::runtime_error("not enough args");
+                    }
+
+                    for (auto each : cmd_strings) {
+                        cout << each << endl;
                     }
 
                     if (cmd_strings.size() == 5) {
@@ -68,12 +77,27 @@ int main(int argc, char** argv) {
                         }
                         first_row_size = stoi(cmd_strings.at(0));
                         first_col_size = stoi(cmd_strings.at(1));
-                        second_row_size = stoi(cmd_strings.at(4));
-                        second_col_size = stoi(cmd_strings.at(5));
+                        second_row_size = stoi(cmd_strings.at(3));
+                        second_col_size = stoi(cmd_strings.at(4));
+                    }
+                    cout << "Format: row,col,op,row,col," << endl;
+                    cout << "Please input the first row of your first matrix: " << endl;
+                    cin >> wstring;
+                    first = matrix(wstring);
+                    for (size_t i = 0; i < first_col_size - 1; i++) {
+                        cout << "Please input the next row: " << endl;
+                        cin >> wstring;
+                        first.add_row(wstring);
                     }
 
-                    for (size_t i = 0; i < first_col_size; i++) {
-                        
+                    cout << "Format: row,col,op,row,col" << endl;
+                    cout << "Please input the first row of your second matrix: " << endl;
+                    cin >> wstring;
+                    second = matrix(wstring);
+                    for (size_t i = 0; i < second_col_size - 1; i++) {
+                        cout << "Please input the next row: " << endl;
+                        cin >> wstring;
+                        second.add_row(wstring);
                     }
 
                     break;
